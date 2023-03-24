@@ -1,16 +1,15 @@
 package com.example.lifeplanner.base
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
-abstract class BaseActivity: AppCompatActivity() {
+abstract class BaseFragment: Fragment() {
     abstract val viewModel: BaseViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initData()
         observeViewModel()
     }
 
-    abstract fun initData()
     abstract fun observeViewModel()
 }

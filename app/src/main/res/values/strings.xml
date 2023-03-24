@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LifePlanner</string>
+
+    <string name="title"><b>Life Planner</b></string>
 </resources>

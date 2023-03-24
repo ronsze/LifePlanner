@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseButton">
+        <attr name="textFont" format="integer">
+            <enum name="regular" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="bold" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BaseTextView" parent="BaseButton">
+        <attr name="textFont"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseEditText" parent="BaseButton">
+        <attr name="textFont"/>
+    </declare-styleable>
+</resources>

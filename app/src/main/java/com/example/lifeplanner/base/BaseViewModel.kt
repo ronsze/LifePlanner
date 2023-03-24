@@ -1,6 +1,7 @@
 package com.example.lifeplanner.base
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 
-class BaseViewModel: ViewModel() {
+abstract class BaseViewModel: ViewModel() {
 }
