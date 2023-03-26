@@ -14,6 +14,6 @@ class SettingActivity : BaseActivity() {
     }
 
     override fun observeViewModel() {
-        TODO("Not yet implemented")
+
     }
 }

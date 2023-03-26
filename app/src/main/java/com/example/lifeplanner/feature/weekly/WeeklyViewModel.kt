@@ -13,7 +13,12 @@ class WeeklyViewModel @Inject constructor(
     private val _initViewEvent = SingleLiveEvent<Void>()
     val initViewEvent: LiveData<Void> = _initViewEvent
 
+    private val dataList = ArrayList<Int>()
+
     fun loadData() {
+        for (i in 0 .. 6) {
+            dataList.add(0)
+        }
         _initViewEvent.call()
     }
 }
