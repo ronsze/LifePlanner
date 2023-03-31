@@ -2,19 +2,13 @@ package com.example.lifeplanner.feature.main
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.lifeplanner.R
 import com.example.lifeplanner.base.BaseActivity
 import com.example.lifeplanner.databinding.ActivityMainBinding
-import com.example.lifeplanner.feature.daily.DailyFragment
-import com.example.lifeplanner.feature.daily.DailyFragmentDirections
-import com.example.lifeplanner.feature.setting.SettingActivity
-import com.example.lifeplanner.feature.weekly.WeeklyFragment
-import com.example.lifeplanner.feature.weekly.WeeklyFragmentDirections
+import com.example.lifeplanner.feature.daily.DailyContainerFragment
+import com.example.lifeplanner.feature.setting.SettingFragment
+import com.example.lifeplanner.feature.weekly.WeeklyContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,8 +16,8 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     override val viewModel: MainViewModel by viewModels()
 
-    private lateinit var weeklyFragment: WeeklyFragment
-    private lateinit var dailyFragment: DailyFragment
+    private lateinit var weeklyFragment: WeeklyContainerFragment
+    private lateinit var dailyFragment: DailyContainerFragment
 
     override fun initData() {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -51,13 +45,7 @@ class MainActivity : BaseActivity() {
         }
 
     private fun setViewEvents() {
-        binding.settingButton.setOnClickListener {
-            goToSettingAct()
-        }
 
-        binding.modeChangeButton.setOnClickListener {
-            showChangeModeAlert()
-        }
     }
 
     private fun changeFragment() {
@@ -66,28 +54,27 @@ class MainActivity : BaseActivity() {
             MainViewModel.ClockMode.DAILY.mode -> changeToDaily()
             else -> throw java.lang.Exception()
         }
-        binding.modeChangeButton.text = getCurrentModeString()
     }
 
     private fun changeToWeekly() {
-        weeklyFragment = WeeklyFragment.newInstance()
+        weeklyFragment = WeeklyContainerFragment.newInstance()
 
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.backpressed_anim_slide_left, R.anim.backpressed_anim_slide_right)
+            .setCustomAnimations(R.anim.anim_scale_up, R.anim.anim_scale_down)
             .replace(R.id.fragment_container, weeklyFragment)
             .commit()
     }
 
     private fun changeToDaily() {
-        dailyFragment = DailyFragment.newInstance()
+        dailyFragment = DailyContainerFragment.newInstance()
 
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.anim_slide_right, R.anim.anim_slide_left)
+            .setCustomAnimations(R.anim.anim_scale_up, R.anim.anim_scale_down)
             .replace(R.id.fragment_container, dailyFragment)
             .commit()
     }
 
-    private fun showChangeModeAlert() {
+    fun showChangeModeAlert() {
         AlertDialog.Builder(this)
             .setTitle("mode change?")
             .setMessage("sure?")
@@ -97,10 +84,5 @@ class MainActivity : BaseActivity() {
             }
             .setNegativeButton("no") { _, _, -> }
             .create().show()
-    }
-
-    private fun goToSettingAct() {
-        val intent = Intent(this, SettingActivity::class.java)
-        startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lifeplanner.feature.weekly
+package com.example.lifeplanner.feature.weekly.weeks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lifeplanner.databinding.FragmentWeeklyEachDayBinding
+import com.example.lifeplanner.room.WeekSchedule
 
-class WeeklyEachDayFragment : Fragment() {
+class WeeklyEachDayFragment(
+) : Fragment() {
     private lateinit var binding: FragmentWeeklyEachDayBinding
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

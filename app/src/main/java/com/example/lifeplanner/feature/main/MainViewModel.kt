@@ -2,6 +2,7 @@ package com.example.lifeplanner.feature.main
 
 import android.content.SharedPreferences
 import android.view.Display.Mode
+import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import com.example.lifeplanner.base.BaseViewModel
 import com.example.lifeplanner.base.SingleLiveEvent
@@ -34,5 +35,9 @@ class MainViewModel @Inject constructor(
         mode =
             if (mode == ClockMode.WEEKLY.mode) ClockMode.DAILY.mode
             else ClockMode.WEEKLY.mode
+
+        sp.edit {
+            putString(MODE, mode)
+        }
     }
 }

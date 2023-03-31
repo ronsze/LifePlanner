@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/page_day_of_week"
+        android:enabled="true"
+        android:icon="@drawable/ic_clock"
+        android:title="Weekly"/>
+
+    <item
+        android:id="@+id/page_week_goal"
+        android:enabled="true"
+        android:icon="@drawable/ic_goal"
+        android:title="WeekGoal"/>
+
+    <item
+        android:id="@+id/page_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_setting"
+        android:title="Setting"/>
+
+    <item
+        android:id="@+id/none"
+        android:enabled="false"
+        android:title="" />
+
+</menu>

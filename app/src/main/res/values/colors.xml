@@ -8,7 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gray3">#CCCCCC</color>
+    <color name="gray">#FAFAFA</color>
+    <color name="gray2">#999999</color>
+    <color name="gray3">#AAAAAA</color>
+    <color name="black2">#333333</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="cornflower">#6789fd</color>
 
     <color name="translucent_white">#99FFFFFF</color>
 </resources>

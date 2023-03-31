@@ -1,4 +1,4 @@
-package com.example.lifeplanner.feature.weekly
+package com.example.lifeplanner.feature.daily
 
 import androidx.lifecycle.LiveData
 import com.example.lifeplanner.base.BaseViewModel
@@ -7,18 +7,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class WeeklyViewModel @Inject constructor(
+class DailyContainerViewModel @Inject constructor(
 
 ): BaseViewModel() {
     private val _initViewEvent = SingleLiveEvent<Void>()
     val initViewEvent: LiveData<Void> = _initViewEvent
 
-    private val dataList = ArrayList<Int>()
+    private var currentTime = ""
+    private var selectedTime = ""
 
     fun loadData() {
-        for (i in 0 .. 6) {
-            dataList.add(0)
-        }
+        setTime()
         _initViewEvent.call()
+    }
+
+    private fun setTime() {
+        currentTime = ""
+        selectedTime = currentTime
     }
 }

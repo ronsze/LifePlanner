@@ -13,10 +13,16 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".feature.weekly.week_goal.WeekGoalActivity"
+            android:name=".feature.weekly.week_goal.WeekGoalFragment"
             android:exported="false" />
         <activity
-            android:name=".feature.setting.SettingActivity"
+            android:name=".feature.setting.SettingFragment"
+            android:exported="false" />
+        <activity
+            android:name=".feature.weekly.add_week_schedule.AddWeekScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.daily.add_daily_schedule.AddDayScheduleActivity"
             android:exported="false" />
         <activity
             android:name=".feature.splash.SplashActivity"
