@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">LifePlanner</string>
+    <string name="app_name" translatable="false">LifePlanner</string>
 
-    <string name="title"><b>Life Planner</b></string>
-    <string name="time_range_format">%d : %d - %d : %d / %d : %d</string>
+    <string name="title" translatable="false"><b>Life Planner</b></string>
+    <string name="time_range_format" translatable="false">%d : %d - %d : %d / %d : %d</string>
+
+    <string-array name="weeks_array">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 </resources>

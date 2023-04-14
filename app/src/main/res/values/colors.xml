@@ -13,7 +13,10 @@
     <color name="gray3">#AAAAAA</color>
     <color name="black2">#333333</color>
     <color name="sky_blue">#87CEEB</color>
+    <color name="dark_blue">#33ADA9</color>
     <color name="cornflower">#6789fd</color>
+    <color name="mint">#20DBD1</color>
 
     <color name="translucent_white">#99FFFFFF</color>
+    <color name="transparent">#00000000</color>
 </resources>
