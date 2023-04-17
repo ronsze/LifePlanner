@@ -60,7 +60,7 @@ class AddScheduleBottomSheet(
         val items = resources.getStringArray(R.array.weeks_array)
         val adapter = ArrayAdapter(
             requireContext(),
-            com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
+            R.layout.spinner_item_weeks,
             items
         )
         binding.weekSpinner.adapter = adapter

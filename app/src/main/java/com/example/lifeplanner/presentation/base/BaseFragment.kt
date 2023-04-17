@@ -7,8 +7,8 @@ abstract class BaseFragment: Fragment() {
     abstract val viewModel: BaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        observeViewModel()
         super.onCreate(savedInstanceState)
+        observeViewModel()
     }
 
     abstract fun observeViewModel()
