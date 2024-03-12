@@ -1,7 +1,16 @@
 package kr.sdbk.lifeplanner.features.main
 
-import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
+import dagger.hilt.android.AndroidEntryPoint
+import kr.sdbk.lifeplanner.base.BaseActivity
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity: BaseActivity<MainViewModel>() {
+    override val viewModel: MainViewModel by viewModels()
 
+    @Composable
+    override fun InitView() {
+
+    }
 }
