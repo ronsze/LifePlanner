@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/schedule"
+        android:title="@string/title_schedule"
+        android:icon="@drawable/ic_launcher_foreground"/>
+
+    <item android:id="@+id/diary"
+        android:title="@string/title_diary"
+        android:icon="@drawable/ic_launcher_background"/>
+
+    <item android:id="@+id/setting"
+        android:title="@string/title_setting"
+        android:icon="@drawable/ic_launcher_background"/>
+</menu>
