@@ -3,11 +3,14 @@ package kr.sdbk.lifeplanner.features.main
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.BottomNavigation
@@ -41,7 +44,7 @@ class MainActivity: BaseActivity<MainViewModel>() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private var currentMenu: MainMenu = MainMenu.Schedule
+    private var currentMenu: MainMenu = MainMenu.ScheduleMenu
 
     @Composable
     override fun InitView() {
@@ -57,24 +60,24 @@ class MainActivity: BaseActivity<MainViewModel>() {
                     binding.root
                 }
             )
-            BottomNavigationBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-            )
+            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color.LightGray))
+            BottomNavigationBar()
         }
     }
 
     @Composable
-    private fun BottomNavigationBar(
-        modifier: Modifier
-    ) {
-        BottomNavigation(modifier = modifier) {
+    private fun BottomNavigationBar() {
+        BottomNavigation(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            backgroundColor = Color.White
+        ) {
             val selectedMenu: MutableState<MainMenu> = remember { mutableStateOf(currentMenu) }
             if (supportFragmentManager.fragments.isEmpty()) initFragment(currentMenu)
-            NavItem(scope = this, icon = R.drawable.ic_launcher_background, menu = MainMenu.Schedule, selectedMenu)
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Diary, selectedMenu)
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Setting, selectedMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_background, menu = MainMenu.ScheduleMenu, selectedMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.DiaryMenu, selectedMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.SettingMenu, selectedMenu)
         }
     }
 
@@ -87,7 +90,7 @@ class MainActivity: BaseActivity<MainViewModel>() {
     ) = scope.run {
         BottomNavigationItem(
             icon = { NavIcon(resourceId = icon) },
-            label = { Text(text = stringResource(id = menu.label), fontSize = 16.sp) },
+            label = { Text(text = stringResource(id = menu.label), fontSize = 12.sp) },
             selectedContentColor = Color.Cyan,
             unselectedContentColor = Color.LightGray,
             alwaysShowLabel = true,
@@ -120,9 +123,9 @@ class MainActivity: BaseActivity<MainViewModel>() {
     private fun initFragment(menu: MainMenu) {
         val tag = getString(menu.label)
         val fragment = when (menu) {
-            MainMenu.Schedule -> ScheduleFragment()
-            MainMenu.Diary -> DiaryFragment()
-            MainMenu.Setting -> SettingFragment()
+            MainMenu.ScheduleMenu -> ScheduleFragment()
+            MainMenu.DiaryMenu -> DiaryFragment()
+            MainMenu.SettingMenu -> SettingFragment()
         }
         supportFragmentManager.beginTransaction().add(R.id.main_container, fragment, tag).commit()
         hideFragments(tag)
@@ -141,16 +144,16 @@ class MainActivity: BaseActivity<MainViewModel>() {
     }
 
     sealed class MainMenu(@StringRes val label: Int) {
-        data object Schedule: MainMenu(R.string.title_schedule)
-        data object Diary: MainMenu(R.string.title_diary)
-        data object Setting: MainMenu(R.string.title_setting)
+        data object ScheduleMenu: MainMenu(R.string.title_schedule)
+        data object DiaryMenu: MainMenu(R.string.title_diary)
+        data object SettingMenu: MainMenu(R.string.title_setting)
     }
 
-    @Preview()
+    @Preview
     @Composable
     fun NavItemPreview() {
         Row {
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Diary, mutableStateOf(MainMenu.Diary))
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.DiaryMenu, mutableStateOf(MainMenu.DiaryMenu))
         }
     }
 }
