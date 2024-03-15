@@ -11,17 +11,17 @@ import kr.sdbk.domain.model.schedule.Schedule
 @Dao
 interface ScheduleDao {
     @Insert
-    suspend fun insert(schedule: Schedule)
+    suspend fun insert(schedule: ScheduleEntity)
 
     @Query("SELECT * FROM schedule")
     suspend fun getAll(): List<ScheduleEntity>
 
     @Update
-    suspend fun update(schedule: Schedule)
+    suspend fun update(schedule: ScheduleEntity)
 
     @Update
-    suspend fun update(schedules: List<Schedule>)
+    suspend fun update(schedules: List<ScheduleEntity>)
 
     @Delete
-    suspend fun delete(schedule: Schedule)
+    suspend fun delete(schedule: ScheduleEntity)
 }

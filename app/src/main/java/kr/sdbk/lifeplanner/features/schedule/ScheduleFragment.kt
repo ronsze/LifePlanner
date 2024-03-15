@@ -48,25 +48,7 @@ class ScheduleFragment: BaseFragment<ScheduleViewModel>() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                items = listOf(
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API"),
-                    Schedule("3:15", 1, "Meeting", "esat metting for API")
-                )
+                items = viewModel.currentList.value
             )
         }
     }
