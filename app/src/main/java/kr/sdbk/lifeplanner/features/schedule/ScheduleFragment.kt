@@ -1,7 +1,9 @@
 package kr.sdbk.lifeplanner.features.schedule
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -73,6 +75,7 @@ class ScheduleFragment: BaseFragment<ScheduleViewModel>() {
         }
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     private fun ScheduleItem(
         item: Schedule,
@@ -85,6 +88,10 @@ class ScheduleFragment: BaseFragment<ScheduleViewModel>() {
                 .background(Color.White)
                 .border(1.dp, Color.Black, RoundedCornerShape(35.dp))
                 .clip(RoundedCornerShape(35.dp))
+                .combinedClickable(onLongClick = {
+                    viewModel.deleteSchedule(item)
+                }, onClick = {})
+
         ) {
             Text(text = item.title)
             Text(text = item.detail, Modifier.offset(y = 25.dp))

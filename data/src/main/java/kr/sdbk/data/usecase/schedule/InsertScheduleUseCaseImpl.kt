@@ -7,7 +7,5 @@ import kr.sdbk.domain.usecase.InsertScheduleUseCase
 class InsertScheduleUseCaseImpl(
     private val repository: ScheduleRepository
 ): InsertScheduleUseCase {
-    override suspend fun invoke(schedule: Schedule) {
-
-    }
+    override suspend fun invoke(schedule: Schedule) = runCatching { repository.insertSchedule(schedule) }
 }
