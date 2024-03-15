@@ -3,19 +3,21 @@ package kr.sdbk.lifeplanner.features.main
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,56 +25,78 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.lifeplanner.R
 import kr.sdbk.lifeplanner.base.BaseActivity
-import kr.sdbk.lifeplanner.features.diary.Diary
-import kr.sdbk.lifeplanner.features.schedule.Schedule
-import kr.sdbk.lifeplanner.features.setting.Setting
+import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
+import kr.sdbk.lifeplanner.features.diary.DiaryFragment
+import kr.sdbk.lifeplanner.features.schedule.ScheduleFragment
+import kr.sdbk.lifeplanner.features.setting.SettingFragment
 
 @AndroidEntryPoint
 class MainActivity: BaseActivity<MainViewModel>() {
     override val viewModel: MainViewModel by viewModels()
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+    private var currentMenu: MainMenu = MainMenu.Schedule
 
     @Composable
     override fun InitView() {
-        val navController = rememberNavController()
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Scaffold(
-                bottomBar = { BottomNavigationBar(navController) },
-            ) { innerPadding ->
-                NavHost(
-                    navController,
-                    startDestination = MainMenu.Schedule.route,
-                    Modifier.padding(innerPadding)
-                ) {
-                    composable(MainMenu.Schedule.route) { Schedule() }
-                    composable(MainMenu.Diary.route) { Diary() }
-                    composable(MainMenu.Setting.route) { Setting() }
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                factory = {
+                    binding.root
                 }
-            }
-
+            )
+            BottomNavigationBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            )
         }
     }
 
     @Composable
     private fun BottomNavigationBar(
-        navController: NavController
+        modifier: Modifier
     ) {
-        BottomNavigation {
-            NavItem(scope = this, icon = R.drawable.ic_launcher_background, item = MainMenu.Schedule, navController)
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, item = MainMenu.Diary, navController)
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, item = MainMenu.Setting, navController)
+        BottomNavigation(modifier = modifier) {
+            val selectedMenu: MutableState<MainMenu> = remember { mutableStateOf(currentMenu) }
+            if (supportFragmentManager.fragments.isEmpty()) initFragment(currentMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_background, menu = MainMenu.Schedule, selectedMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Diary, selectedMenu)
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Setting, selectedMenu)
         }
+    }
+
+    @Composable
+    private fun NavItem(
+        scope: RowScope,
+        @DrawableRes icon: Int,
+        menu: MainMenu,
+        selectedMenu: MutableState<MainMenu>
+    ) = scope.run {
+        BottomNavigationItem(
+            icon = { NavIcon(resourceId = icon) },
+            label = { Text(text = stringResource(id = menu.label), fontSize = 16.sp) },
+            selectedContentColor = Color.Cyan,
+            unselectedContentColor = Color.LightGray,
+            alwaysShowLabel = true,
+            selected = menu == selectedMenu.value,
+            onClick = {
+                selectedMenu.value = menu
+                onClickNavItem(menu)
+            }
+        )
     }
 
     @Composable
@@ -84,45 +108,49 @@ class MainActivity: BaseActivity<MainViewModel>() {
         )
     }
 
-    @Composable
-    private fun NavItem(
-        scope: RowScope,
-        @DrawableRes icon: Int,
-        item: MainMenu,
-        navController: NavController
-    ) = scope.run {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        BottomNavigationItem(
-            icon = { NavIcon(resourceId = icon) },
-            label = { Text(text = stringResource(id = item.label), fontSize = 16.sp) },
-            selectedContentColor = Color.Cyan,
-            unselectedContentColor = Color.LightGray,
-            alwaysShowLabel = true,
-            selected = currentRoute == item.route,
-            onClick = {
-                navController.navigate(item.route) {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
-                    }
-                    launchSingleTop = true
-                    restoreState = true
-                }
-            }
-        )
+    private fun onClickNavItem(menu: MainMenu) {
+        val tag = getString(menu.label)
+        val existingFragment = supportFragmentManager.findFragmentByTag(tag)
+        existingFragment?.run {
+            replaceFragment(this, tag)
+        } ?: initFragment(menu)
+        currentMenu = menu
     }
 
-    sealed class MainMenu(val route: String, @StringRes val label: Int) {
-        data object Schedule: MainMenu("schedule", R.string.title_schedule)
-        data object Diary: MainMenu("diary", R.string.title_diary)
-        data object Setting: MainMenu("setting", R.string.title_setting)
+    private fun initFragment(menu: MainMenu) {
+        val tag = getString(menu.label)
+        val fragment = when (menu) {
+            MainMenu.Schedule -> ScheduleFragment()
+            MainMenu.Diary -> DiaryFragment()
+            MainMenu.Setting -> SettingFragment()
+        }
+        supportFragmentManager.beginTransaction().add(R.id.main_container, fragment, tag).commit()
+        hideFragments(tag)
     }
 
-    @Preview
+    private fun replaceFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager.beginTransaction().show(fragment).commit()
+        hideFragments(tag)
+    }
+
+    private fun hideFragments(tag: String) {
+        supportFragmentManager.fragments.forEach {
+            if (it.tag != tag && !it.isHidden)
+                supportFragmentManager.beginTransaction().hide(it).commit()
+        }
+    }
+
+    sealed class MainMenu(@StringRes val label: Int) {
+        data object Schedule: MainMenu(R.string.title_schedule)
+        data object Diary: MainMenu(R.string.title_diary)
+        data object Setting: MainMenu(R.string.title_setting)
+    }
+
+    @Preview()
     @Composable
     fun NavItemPreview() {
         Row {
-            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, item = MainMenu.Diary, rememberNavController())
+            NavItem(scope = this, icon = R.drawable.ic_launcher_foreground, menu = MainMenu.Diary, mutableStateOf(MainMenu.Diary))
         }
     }
 }

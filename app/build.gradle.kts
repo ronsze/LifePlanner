@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     implementation(libs.androidx.constraint)
@@ -68,7 +69,6 @@ dependencies {
     testImplementation(libs.junit)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.compose.ui.test.junit4)
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
