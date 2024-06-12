@@ -1,20 +1,31 @@
 package kr.sdbk.lifeplanner
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.activity.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kr.sdbk.core_common.base.BaseActivity
+import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
+    ActivityMainBinding::inflate
+) {
+    override val activityViewModel: MainViewModel by viewModels()
+
+    override fun afterBinding() {
+        setNavigation()
+    }
+
+    override fun observeViewModel() {
+
+    }
+
+    private fun setNavigation() {
+        val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_container) as NavHostFragment
+        val navController = navHost.navController
+        val graph = navController.navInflater.inflate(kr.sdbk.core_common.R.navigation.main_nav)
+        graph.setStartDestination(kr.sdbk.feature_splash.R.id.splash_nav)
+        navController.graph = graph
     }
 }
