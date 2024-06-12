@@ -32,4 +32,9 @@ abstract class BaseFragment<B: ViewDataBinding, V: BaseViewModel>(
 
     abstract fun afterBinding()
     abstract fun observeViewModel()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
