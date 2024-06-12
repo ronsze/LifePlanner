@@ -11,4 +11,5 @@
             <enum name="bold" value="2"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="BaseEditText" parent="BaseTextView"/>
 </resources>
