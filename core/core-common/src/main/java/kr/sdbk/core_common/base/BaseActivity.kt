@@ -1,4 +1,4 @@
-package kr.sdbk.core_common.base_view
+package kr.sdbk.core_common.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
