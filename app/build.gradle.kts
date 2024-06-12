@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hilt)
+    id("kotlin-kapt")
 }
 
 android {
@@ -39,6 +41,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":core:core-common"))
+    implementation(project(":features:feature-splash"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -48,4 +54,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }
