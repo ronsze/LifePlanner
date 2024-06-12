@@ -23,3 +23,4 @@ rootProject.name = "LifePlanner"
 include(":app")
 include(":data")
 include(":domain")
+include(":core:core-common")
