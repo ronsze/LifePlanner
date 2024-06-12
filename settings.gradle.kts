@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "LifePlanner"
 include(":app")
 include(":data")
+include(":domain")
