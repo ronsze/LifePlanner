@@ -1,4 +1,12 @@
 package kr.sdbk.feature_splash
 
-class SplashViewModel {
+import android.app.Application
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.sdbk.core_common.base.BaseViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+    application: Application
+): BaseViewModel(application) {
 }
