@@ -24,6 +24,9 @@ navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", ver
 
 circleImageView = { group = "de.hdodenhof", name = "circleimageview", version = "3.1.0" }
 
+mockk = { group = "io.mockk", name = "mockk", version = "1.13.11" }
+robolectric = { group = "org.robolectric", name = "robolectric", version = "4.12.2" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

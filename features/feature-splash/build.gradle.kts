@@ -54,4 +54,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.circleImageView)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
 }
