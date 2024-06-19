@@ -6,7 +6,7 @@
         android:title="diary" />
 
     <item
-        android:id="@+id/mypage"
+        android:id="@+id/mypage_nav"
         android:icon="@drawable/ic_app_logo"
         android:title="mypage" />
 </menu>
