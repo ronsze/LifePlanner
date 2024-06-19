@@ -1,4 +1,4 @@
-package kr.sdbk.lifeplanner
+package kr.sdbk.mydiary
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.base.BaseActivity
-import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
+import kr.sdbk.mydiary.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(

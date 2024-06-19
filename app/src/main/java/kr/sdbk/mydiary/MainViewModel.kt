@@ -1,4 +1,4 @@
-package kr.sdbk.lifeplanner
+package kr.sdbk.mydiary
 
 import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LifePlanner"
+rootProject.name = "MyDiary"
 include(":app")
 include(":data")
 include(":domain")
