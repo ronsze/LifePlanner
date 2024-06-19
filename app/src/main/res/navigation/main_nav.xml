@@ -5,5 +5,6 @@
 
     <include app:graph="@navigation/splash_nav" />
     <include app:graph="@navigation/diary_nav" />
+    <include app:graph="@navigation/mypage_nav" />
 
 </navigation>
