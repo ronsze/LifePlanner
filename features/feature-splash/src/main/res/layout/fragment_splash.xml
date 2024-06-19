@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <kr.sdbk.core_common.custom_view.BaseImageView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:src="@color/cardview_dark_background"
-            android:layout_gravity="center"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ic_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="15dp"
+            android:src="@drawable/ic_app_logo"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="3dp" />
 
     </FrameLayout>
 </layout>
