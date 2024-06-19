@@ -1,4 +1,4 @@
-package kr.sdbk.feature_splash
+package kr.sdbk.feature_mypage
 
 import org.junit.Test
 
