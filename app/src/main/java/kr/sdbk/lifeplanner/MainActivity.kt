@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.base.BaseActivity
-import kr.sdbk.core_common.util.Const.BOTTOM_NAVIGATION_VISIBLE
 import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -39,10 +38,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
         binding.mainBottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, _, arg ->
-            when {
-                arg is Bundle && !arg.isEmpty -> setBottomNavigationVisible(arg.getBoolean(BOTTOM_NAVIGATION_VISIBLE))
-                else -> setBottomNavigationVisible(false)
+            val isBottomNavigationVisible = when {
+                arg is Bundle && !arg.isEmpty -> arg.getBoolean(getString(kr.sdbk.core_common.R.string.bottom_navigation_visible))
+                else -> false
             }
+            setBottomNavigationVisible(isBottomNavigationVisible)
         }
     }
 
