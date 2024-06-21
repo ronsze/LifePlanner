@@ -11,9 +11,6 @@
         android:label="DiaryFragment"
         tools:layout="@layout/fragment_diary" >
 
-        <deepLink
-            app:uri="android-app://kr.sdbk.lifeplanner/diary_nav"/>
-
         <argument
             android:name="@string/bottom_navigation_visible"
             app:argType="boolean"

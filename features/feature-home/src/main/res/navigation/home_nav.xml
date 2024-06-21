@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/home_nav">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="kr.sdbk.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <deepLink
+            app:uri="android-app://kr.sdbk.lifeplanner/home_nav"/>
+
+        <argument
+            android:name="@string/bottom_navigation_visible"
+            app:argType="boolean"
+            android:defaultValue="true"/>
+
+    </fragment>
 
 </navigation>
