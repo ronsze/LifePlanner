@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":core:core-common"))
     implementation(project(":features:feature-splash"))
+    implementation(project(":features:feature-home"))
     implementation(project(":features:feature-diary"))
     implementation(project(":features:feature-mypage"))
 

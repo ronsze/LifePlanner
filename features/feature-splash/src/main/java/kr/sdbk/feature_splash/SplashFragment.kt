@@ -48,7 +48,7 @@ class SplashFragment: BaseFragment<FragmentSplashBinding, SplashViewModel>(
 
     private fun navigateToDiary() {
         val req = NavDeepLinkRequest.Builder
-            .fromUri("android-app://kr.sdbk.lifeplanner/diary_nav".toUri())
+            .fromUri("android-app://kr.sdbk.lifeplanner/home_nav".toUri())
             .build()
         navigateTo(req)
     }
