@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_diary" >
 
         <deepLink
-            app:uri="android-app://kr.sdbk.lifePlanner/diary_nav"/>
+            app:uri="android-app://kr.sdbk.lifeplanner/diary_nav"/>
 
         <argument
             android:name="@string/bottom_navigation_visible"
