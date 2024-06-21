@@ -1,4 +1,4 @@
-package kr.sdbk.mydiary
+package kr.sdbk.lifeplanner
 
 import org.junit.Test
 

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "kr.sdbk.mydiary"
+    namespace = "kr.sdbk.lifeplanner"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "kr.sdbk.mydiary"
+        applicationId = "kr.sdbk.lifeplanner"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
