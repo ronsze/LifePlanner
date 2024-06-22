@@ -34,6 +34,10 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 }
 
@@ -56,4 +60,7 @@ dependencies {
 
     testImplementation(libs.mockk)
     testImplementation(libs.robolectric)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
 }

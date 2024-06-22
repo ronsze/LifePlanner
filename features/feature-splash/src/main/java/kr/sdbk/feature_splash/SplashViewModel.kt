@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kr.sdbk.core_common.base.BaseViewModel
+import kr.sdbk.core_common.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
