@@ -1,4 +1,4 @@
-package kr.sdbk.core_common.base
+package kr.sdbk.core_common.context_view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kr.sdbk.core_common.viewmodel.BaseViewModel
 
 abstract class BaseFragment<B: ViewDataBinding, V: BaseViewModel>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> B

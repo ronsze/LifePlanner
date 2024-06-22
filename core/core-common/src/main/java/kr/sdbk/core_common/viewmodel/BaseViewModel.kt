@@ -1,4 +1,4 @@
-package kr.sdbk.core_common.base
+package kr.sdbk.core_common.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

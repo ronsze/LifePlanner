@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kr.sdbk.core_common.base.BaseActivity
+import kr.sdbk.core_common.context_view.BaseActivity
 import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
 
 @AndroidEntryPoint

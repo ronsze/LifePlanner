@@ -7,7 +7,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDeepLinkRequest
 import dagger.hilt.android.AndroidEntryPoint
-import kr.sdbk.core_common.base.BaseFragment
+import kr.sdbk.core_common.context_view.BaseFragment
 import kr.sdbk.feature_splash.databinding.FragmentSplashBinding
 
 @AndroidEntryPoint
