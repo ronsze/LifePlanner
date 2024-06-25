@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.sdbk.feature_mypage"
+    namespace = "kr.sdbk.home"
     compileSdk = 34
 
     defaultConfig {
@@ -26,20 +26,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 }
 
 dependencies {
-    implementation(project(":core:core-common"))
 
+    implementation(project(":core:common"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -56,4 +60,7 @@ dependencies {
 
     testImplementation(libs.mockk)
     testImplementation(libs.robolectric)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
 }

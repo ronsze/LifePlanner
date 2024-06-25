@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.sdbk.home"
+    namespace = "kr.sdbk.feature_splash"
     compileSdk = 34
 
     defaultConfig {
@@ -26,24 +26,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         dataBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
     }
 }
 
 dependencies {
-    implementation(project(":core:core-common"))
 
+    implementation(project(":core:common"))
+    implementation(libs.androidx.fragment)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -60,7 +57,4 @@ dependencies {
 
     testImplementation(libs.mockk)
     testImplementation(libs.robolectric)
-
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.compose)
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "kr.sdbk.feature_splash"
+    namespace = "kr.sdbk.feature_diary"
     compileSdk = 34
 
     defaultConfig {
@@ -38,9 +38,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-common"))
 
-    implementation(libs.androidx.fragment)
+    implementation(project(":core:common"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

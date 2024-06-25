@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "kr.sdbk.feature_diary"
+    namespace = "kr.sdbk.data"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 27
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,14 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:core-common"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,10 +45,6 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
-    implementation(libs.circleImageView)
-
-    testImplementation(libs.mockk)
-    testImplementation(libs.robolectric)
+    implementation(libs.bundles.room)
+    annotationProcessor(libs.room.compiler)
 }

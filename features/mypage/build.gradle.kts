@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hilt)
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "kr.sdbk.data"
+    namespace = "kr.sdbk.feature_mypage"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 27
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -30,9 +32,13 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":core:common"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -40,4 +46,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    implementation(libs.circleImageView)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
 }
