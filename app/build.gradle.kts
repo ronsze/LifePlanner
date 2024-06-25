@@ -41,13 +41,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":core:core-common"))
-    implementation(project(":features:feature-splash"))
-    implementation(project(":features:feature-home"))
-    implementation(project(":features:feature-diary"))
-    implementation(project(":features:feature-mypage"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+    implementation(project(":features:splash"))
+    implementation(project(":features:home"))
+    implementation(project(":features:diary"))
+    implementation(project(":features:mypage"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

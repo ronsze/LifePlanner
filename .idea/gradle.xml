@@ -11,14 +11,14 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/core-common" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/core/common" />
+            <option value="$PROJECT_DIR$/core/data" />
+            <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/features" />
-            <option value="$PROJECT_DIR$/features/feature-diary" />
-            <option value="$PROJECT_DIR$/features/feature-home" />
-            <option value="$PROJECT_DIR$/features/feature-mypage" />
-            <option value="$PROJECT_DIR$/features/feature-splash" />
+            <option value="$PROJECT_DIR$/features/diary" />
+            <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/features/mypage" />
+            <option value="$PROJECT_DIR$/features/splash" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
