@@ -7,5 +7,5 @@ import kr.sdbk.data.room.entity.ScheduleEntity
 
 @Database(entities = [ScheduleEntity::class], version = 0)
 abstract class LifePlannerDatabase: RoomDatabase() {
-    abstract fun ScheduleDao(): ScheduleDao
+    abstract fun scheduleDao(): ScheduleDao
 }

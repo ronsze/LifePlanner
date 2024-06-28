@@ -12,5 +12,6 @@ data class ScheduleEntity(
     val dayOfWeek: String,
     val state: String
 ) {
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 }

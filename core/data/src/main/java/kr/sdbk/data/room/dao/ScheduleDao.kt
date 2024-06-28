@@ -11,7 +11,7 @@ import java.time.DayOfWeek
 @Dao
 interface ScheduleDao {
     @Insert
-    suspend fun addSchedule(schedule: ScheduleEntity)
+    suspend fun insertSchedule(schedule: ScheduleEntity)
 
     @Query("SELECT * FROM Schedule")
     suspend fun getAllSchedule(): List<ScheduleEntity>
