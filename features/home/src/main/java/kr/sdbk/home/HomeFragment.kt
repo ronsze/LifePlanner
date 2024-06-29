@@ -18,5 +18,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     override fun observeViewModel() {
         fragmentViewModel.loadData()
     }
-
 }

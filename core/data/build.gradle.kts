@@ -48,8 +48,8 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(libs.bundles.room)
-    annotationProcessor(libs.room.compiler)
-    
+    kapt(libs.room.compiler)
+
     implementation(libs.gson)
 
 }
