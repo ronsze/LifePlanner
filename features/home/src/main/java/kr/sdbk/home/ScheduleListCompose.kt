@@ -1,16 +1,20 @@
 package kr.sdbk.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -24,44 +28,67 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kr.sdbk.core_common.R
+import kr.sdbk.core_common.compose.dashedBorder
 import kr.sdbk.core_common.compose.dpToSp
+import model.schedule.Schedule
+import model.schedule.ScheduleState
+import model.schedule.Time
+import java.time.DayOfWeek
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScheduleList(fragmentViewModel: HomeViewModel) {
-    val data = remember { fragmentViewModel.list }
+    val data = remember { fragmentViewModel.scheduleList }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(top = 40.dp, bottom = 25.dp)
+            .padding(top = 40.dp)
+            .padding(horizontal = 20.dp)
     ) {
-        items(data) {
-            ScheduleItem(it, Modifier.animateItemPlacement())
+        items(data) { schedule ->
+            ScheduleItem(
+                item = schedule,
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.height(25.dp))
+        }
+        item {
+            Spacer(modifier = Modifier.height(25.dp))
+            ScheduleAddItem(
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.height(25.dp))
         }
     }
 }
 
 @Composable
 fun ScheduleItem(
-    item: String,
+    item: Schedule,
     modifier: Modifier
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 20.dp)
-            .padding(top = 15.dp, bottom = 10.dp)
     ) {
-        TimeText(Modifier.align(Alignment.End))
-        Content(item, Modifier)
+        TimeText(
+            time = item.time,
+            modifier = modifier.align(Alignment.End)
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Content(
+            item = item,
+            modifier = Modifier
+        )
     }
 }
 
 @Composable
-fun TimeText(modifier: Modifier) {
+fun TimeText(
+    time: Time,
+    modifier: Modifier
+) {
     Text(
-        text = "16:44",
+        text = time.toText(),
         fontSize = dpToSp(21.dp),
         modifier = modifier
             .padding(end = 7.dp)
@@ -70,7 +97,7 @@ fun TimeText(modifier: Modifier) {
 
 @Composable
 fun Content(
-    item: String,
+    item: Schedule,
     modifier: Modifier
 ) {
     Card(
@@ -80,11 +107,14 @@ fun Content(
         ),
         elevation = CardDefaults.cardElevation(5.dp),
         modifier = modifier
-            .wrapContentHeight()
-            .padding(top = 7.dp)
+            .height(85.dp)
     ) {
         Row {
-            TextPart(item, Modifier.weight(1f))
+            TextPart(
+                title = item.title,
+                detail = item.detail,
+                modifier = Modifier.weight(1f)
+            )
             Image(
                 painter = painterResource(id = R.drawable.ic_hello),
                 contentDescription = "",
@@ -98,7 +128,8 @@ fun Content(
 
 @Composable
 fun TextPart(
-    item: String,
+    title: String,
+    detail: String,
     modifier: Modifier
 ) {
     Column(
@@ -106,13 +137,13 @@ fun TextPart(
             .padding(horizontal = 17.dp, vertical = 10.dp)
     ) {
         Text(
-            text = item,
+            text = title,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontSize = dpToSp(17.dp)
         )
         Text(
-            text = "detaildetaildetaildetaildetaildedetaildetaildetaildetaildetaildetailtaildetaildetaildetaildetaildetaildetail",
+            text = detail,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             fontSize = dpToSp(15.dp),
@@ -123,7 +154,42 @@ fun TextPart(
 }
 
 @Composable
+fun ScheduleAddItem(
+    modifier: Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(85.dp)
+            .dashedBorder(
+                width = 2f,
+                size = 15f,
+                cap = 10f,
+                color = colorResource(id = R.color.gray),
+                radius = 35.dp
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            imageVector = Icons.Filled.Add,
+            contentDescription = "",
+            modifier = Modifier
+                .size(55.dp)
+        )
+    }
+}
+
+@Composable
 @Preview
 fun ScheduleItemPreview() {
-    ScheduleItem("1", Modifier)
+    Content(
+        item = Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
+        modifier = Modifier
+    )
+}
+
+@Composable
+@Preview
+fun ScheduleAddItemPreview() {
+    ScheduleAddItem(modifier = Modifier)
 }
