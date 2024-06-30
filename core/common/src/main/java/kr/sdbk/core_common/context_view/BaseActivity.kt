@@ -22,6 +22,7 @@ abstract class BaseActivity<B: ViewDataBinding, V: BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = inflate(layoutInflater)
+        binding.lifecycleOwner = this
         setContentView(binding.root)
 
         afterBinding()

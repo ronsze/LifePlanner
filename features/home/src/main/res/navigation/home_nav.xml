@@ -11,14 +11,27 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
 
-        <deepLink
-            app:uri="android-app://kr.sdbk.lifeplanner/home_nav"/>
+        <deepLink app:uri="android-app://kr.sdbk.lifeplanner/home_nav" />
 
         <argument
             android:name="@string/bottom_navigation_visible"
-            app:argType="boolean"
-            android:defaultValue="true"/>
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_addScheduleFragment"
+            app:destination="@id/addScheduleFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/addScheduleFragment"
+        android:name="kr.sdbk.home.AddScheduleFragment"
+        android:label="AddScheduleFragment"
+        tools:layout="@layout/fragment_add_schedule" />
 
 </navigation>
