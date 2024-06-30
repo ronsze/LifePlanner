@@ -29,9 +29,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
     private fun setNavigation() {
         val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_container) as NavHostFragment
         navController = navHost.navController
-        val graph = navController.navInflater.inflate(R.navigation.main_nav)
-        graph.setStartDestination(kr.sdbk.feature_splash.R.id.splash_nav)
-        navController.graph = graph
     }
 
     private fun setBottomNavigation() {

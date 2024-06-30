@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.navOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.context_view.BaseFragment
 import kr.sdbk.feature_splash.databinding.FragmentSplashBinding
@@ -50,6 +51,14 @@ class SplashFragment: BaseFragment<FragmentSplashBinding, SplashViewModel>(
         val req = NavDeepLinkRequest.Builder
             .fromUri("android-app://kr.sdbk.lifeplanner/home_nav".toUri())
             .build()
-        navigateTo(req)
+
+        val option = navOptions {
+            getSlideAnim()
+            popUpTo(R.id.splashFragment) {
+                inclusive = true
+            }
+        }
+
+        navigateTo(req, option)
     }
 }
