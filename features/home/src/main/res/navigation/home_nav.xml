@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="kr.sdbk.home.HomeFragment"
+        android:name="kr.sdbk.home.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
 
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/addScheduleFragment"
-        android:name="kr.sdbk.home.AddScheduleFragment"
+        android:name="kr.sdbk.home.add_schedule.AddScheduleFragment"
         android:label="AddScheduleFragment"
         tools:layout="@layout/fragment_add_schedule" />
 

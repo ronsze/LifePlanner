@@ -1,4 +1,4 @@
-package kr.sdbk.home
+package kr.sdbk.home.add_schedule
 
 import android.app.Application
 import dagger.hilt.android.lifecycle.HiltViewModel

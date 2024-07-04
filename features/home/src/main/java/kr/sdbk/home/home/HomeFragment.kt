@@ -1,11 +1,13 @@
-package kr.sdbk.home
+package kr.sdbk.home.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,12 +30,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.R
 import kr.sdbk.core_common.compose.dashedBorder
 import kr.sdbk.core_common.compose.dpToSp
-import kr.sdbk.core_common.context_view.BaseFragment
+import kr.sdbk.core_common.context_view.BaseLayoutFragment
 import kr.sdbk.home.databinding.FragmentHomeBinding
 import model.schedule.Schedule
 import model.schedule.ScheduleState
@@ -41,7 +44,7 @@ import model.schedule.Time
 import java.time.DayOfWeek
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
+class HomeFragment : BaseLayoutFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate
 ) {
     override val fragmentViewModel: HomeViewModel by viewModels()
@@ -56,6 +59,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun navigateToAddSchedule() {
         navigateTo(HomeFragmentDirections.actionHomeFragmentToAddScheduleFragment())
+    }
+
+    override fun setFragmentResultListeners() {
+        setFragmentResultListener("") { d, _ ->
+
+        }
     }
 
     @Composable
@@ -77,9 +86,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
             item {
                 Spacer(modifier = Modifier.height(25.dp))
-                ScheduleAddItem(
-                    modifier = Modifier
-                )
+                ContentContainer(false) {
+                    ScheduleAddItem(
+                        modifier = Modifier
+                    )
+                }
                 Spacer(modifier = Modifier.height(25.dp))
             }
         }
@@ -98,10 +109,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 modifier = modifier.align(Alignment.End)
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Content(
-                item = item,
-                modifier = Modifier
-            )
+            ContentContainer {
+                Content(
+                    item = item,
+                    modifier = Modifier
+                )
+            }
         }
     }
 
@@ -119,18 +132,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     @Composable
+    fun ContentContainer(
+        enableShadow: Boolean = true,
+        content: @Composable () -> Unit
+    ) {
+        val elevation = if (enableShadow) 5.dp else 0.dp
+        Card(
+            shape = RoundedCornerShape(35.dp),
+            colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.transparent)),
+            elevation = CardDefaults.cardElevation(elevation),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(85.dp)
+        ) {
+            content()
+        }
+    }
+
+    @Composable
     fun Content(
         item: Schedule,
         modifier: Modifier
     ) {
-        Card(
-            shape = RoundedCornerShape(35.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = colorResource(id = R.color.white)
-            ),
-            elevation = CardDefaults.cardElevation(5.dp),
+        Box(
             modifier = modifier
-                .height(85.dp)
+                .fillMaxSize()
+                .background(colorResource(id = R.color.white))
         ) {
             Row {
                 TextPart(
@@ -144,6 +171,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     modifier = Modifier
                         .size(75.dp)
                         .padding(15.dp)
+                        .align(Alignment.CenterVertically)
                 )
             }
         }
@@ -182,8 +210,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     ) {
         Box(
             modifier = modifier
-                .fillMaxWidth()
-                .height(85.dp)
+                .fillMaxSize()
                 .dashedBorder(
                     width = 2f,
                     size = 15f,
@@ -207,7 +234,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     @Preview
     fun ScheduleItemPreview() {
         Content(
-            item = Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
+            item = Schedule("", "tt", "Hello\nhello\nww", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
             modifier = Modifier
         )
     }

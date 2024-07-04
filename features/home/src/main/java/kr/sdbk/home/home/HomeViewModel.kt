@@ -1,4 +1,4 @@
-package kr.sdbk.home
+package kr.sdbk.home.home
 
 import android.app.Application
 import androidx.compose.runtime.mutableStateListOf
