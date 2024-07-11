@@ -8,11 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.navOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kr.sdbk.core_common.context_view.BaseFragment
+import kr.sdbk.core_common.context_view.BaseLayoutFragment
 import kr.sdbk.feature_splash.databinding.FragmentSplashBinding
 
 @AndroidEntryPoint
-class SplashFragment: BaseFragment<FragmentSplashBinding, SplashViewModel>(
+class SplashFragment: BaseLayoutFragment<FragmentSplashBinding, SplashViewModel>(
     FragmentSplashBinding::inflate
 ) {
     override val fragmentViewModel: SplashViewModel by viewModels()
