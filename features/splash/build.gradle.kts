@@ -7,7 +7,7 @@ android {
     namespace = "kr.sdbk.feature_splash"
 }
 
-apply(from = "../../common.gradle")
+apply(from = "$rootDir/common.gradle")
 
 dependencies {
     implementation(libs.androidx.fragment)

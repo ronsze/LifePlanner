@@ -7,7 +7,7 @@ android {
     namespace = "kr.sdbk.feature_diary"
 }
 
-apply(from = "../../common.gradle")
+apply(from = "$rootDir/common.gradle")
 
 dependencies {
 }

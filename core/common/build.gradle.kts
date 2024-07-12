@@ -7,7 +7,7 @@ android {
     namespace = "kr.sdbk.core_common"
 }
 
-apply(from = "../../common.gradle")
+apply(from = "$rootDir/common.gradle")
 
 dependencies {
     implementation(libs.androidx.fragment)

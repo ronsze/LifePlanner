@@ -8,7 +8,7 @@ android {
     namespace = "kr.sdbk.home"
 }
 
-apply(from = "../../common.gradle")
+apply(from = "$rootDir/common.gradle")
 
 dependencies {
     implementation(project(":core:data"))
