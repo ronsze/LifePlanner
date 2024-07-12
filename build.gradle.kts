@@ -12,3 +12,9 @@ buildscript {
         classpath(libs.navigation.safeArgs)
     }
 }
+
+subprojects {
+    afterEvaluate {
+        project.apply { "$rootDir/common.gradle"}
+    }
+}
