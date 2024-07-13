@@ -19,6 +19,13 @@ abstract class BaseComposeFragment<V: BaseViewModel>: BaseFragment<V>() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        afterComposed()
+    }
+
+    abstract fun afterComposed()
+
     @Composable
     abstract fun Root()
 }

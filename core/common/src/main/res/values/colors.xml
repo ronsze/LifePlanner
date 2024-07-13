@@ -5,4 +5,5 @@
     <color name="blue">#FF0000FF</color>
     <color name="gray">#FF777777</color>
     <color name="transparent">#00000000</color>
+    <color name="translucent_black">#30000000</color>
 </resources>

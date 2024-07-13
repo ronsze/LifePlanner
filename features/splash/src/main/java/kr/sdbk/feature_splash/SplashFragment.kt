@@ -1,5 +1,6 @@
 package kr.sdbk.feature_splash
 
+import android.graphics.Paint.Align
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -26,6 +28,8 @@ import kr.sdbk.core_common.context_view.BaseComposeFragment
 @AndroidEntryPoint
 class SplashFragment: BaseComposeFragment<SplashViewModel>() {
     override val fragmentViewModel: SplashViewModel by viewModels()
+
+    override fun afterComposed() {}
 
     @Composable
     override fun Root() {
@@ -50,6 +54,7 @@ class SplashFragment: BaseComposeFragment<SplashViewModel>() {
                     .aspectRatio(1f)
                     .padding(horizontal = 10.dp)
                     .clip(CircleShape)
+                    .align(Alignment.Center)
             )
         }
     }

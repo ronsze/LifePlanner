@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kr.sdbk.core_common.viewmodel.BaseViewModel
 import kr.sdbk.data.module.IODispatcher
@@ -29,10 +32,14 @@ class HomeViewModel @Inject constructor(
     private val updateScheduleUseCase: UpdateScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase
 ): BaseViewModel(application) {
-    private val _scheduleList: SnapshotStateList<Schedule> = mutableStateListOf()
-    val scheduleList: List<Schedule> get() = _scheduleList
+    private val _viewState: MutableStateFlow<HomeViewState> = MutableStateFlow(HomeViewState.Loading)
+    val viewState get() = _viewState.asStateFlow()
+
+    private val _scheduleList: MutableStateFlow<List<Schedule>> = MutableStateFlow(listOf())
+    val scheduleList get() = _scheduleList.asStateFlow()
 
     fun loadData() {
+        _viewState.set(HomeViewState.Loading)
         loadAllSchedules()
     }
 
@@ -45,13 +52,28 @@ class HomeViewModel @Inject constructor(
 //            })
 //        }
         viewModelScope.launch {
-            val list = mutableListOf<Schedule>()
             delay(1000)
-            _scheduleList.add(Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED))
+            _scheduleList.set(
+                listOf(
+                    Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED)
+                )
+            )
             delay(1000)
-            _scheduleList.add(Schedule("", "22", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED))
+            _scheduleList.set(
+                listOf(
+                    Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
+                    Schedule("", "tt2", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED)
+                )
+            )
             delay(1000)
-            _scheduleList.add(Schedule("", "33", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED))
+            _scheduleList.set(
+                listOf(
+                    Schedule("", "tt", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
+                    Schedule("", "tt2", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED),
+                    Schedule("", "tt3", "", Time(15, 22), DayOfWeek.entries[0], ScheduleState.DISABLED)
+                )
+            )
+            _viewState.set(HomeViewState.View)
         }
     }
 
@@ -83,5 +105,10 @@ class HomeViewModel @Inject constructor(
 
             })
         }
+    }
+
+    sealed interface HomeViewState {
+        data object Loading: HomeViewState
+        data object View: HomeViewState
     }
 }

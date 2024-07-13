@@ -9,6 +9,8 @@ import kr.sdbk.core_common.context_view.BaseComposeFragment
 class AddScheduleFragment: BaseComposeFragment<AddScheduleViewModel>() {
     override val fragmentViewModel: AddScheduleViewModel by viewModels()
 
+    override fun afterComposed() {}
+
     @Composable
     override fun Root() {
 
