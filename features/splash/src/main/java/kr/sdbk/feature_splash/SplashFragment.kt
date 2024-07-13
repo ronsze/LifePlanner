@@ -1,17 +1,27 @@
 package kr.sdbk.feature_splash
 
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.AnimationUtils
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.navOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.context_view.BaseComposeFragment
-import kr.sdbk.core_common.context_view.BaseLayoutFragment
-import kr.sdbk.feature_splash.databinding.FragmentSplashBinding
 
 @AndroidEntryPoint
 class SplashFragment: BaseComposeFragment<SplashViewModel>() {
@@ -19,28 +29,28 @@ class SplashFragment: BaseComposeFragment<SplashViewModel>() {
 
     @Composable
     override fun Root() {
-
-    }
-
-//    private fun observeViewState(state: SplashViewModel.SplashViewState) {
-//        when (state) {
-//            SplashViewModel.SplashViewState.Loading -> fragmentViewModel.loadData()
-//            SplashViewModel.SplashViewState.DataLoaded -> startLogoAnimation()
-//        }
-//    }
-//
-//    private fun startLogoAnimation() = binding.icLogo.run {
-//        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_logo_scale).apply {
-//            setAnimationListener(logoAnimationListener)
-//        }
-//        startAnimation(anim)
-//    }
-
-    private val logoAnimationListener = object : AnimationListener {
-        override fun onAnimationStart(animation: Animation?) {}
-        override fun onAnimationRepeat(animation: Animation?) {}
-        override fun onAnimationEnd(animation: Animation?) {
-            navigateToDiary()
+        Box {
+            val viewState by fragmentViewModel.viewState.collectAsStateWithLifecycle()
+            if (viewState == SplashViewModel.SplashViewState.Loading) fragmentViewModel.loadData()
+            val scale by animateFloatAsState(
+                targetValue = if (viewState == SplashViewModel.SplashViewState.DataLoaded) 5f else 1f,
+                animationSpec = tween(
+                    durationMillis = 800,
+                    delayMillis = 50
+                ),
+                finishedListener = { navigateToDiary() },
+                label = "scale"
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_app_logo),
+                contentDescription = "",
+                modifier = Modifier
+                    .scale(scale)
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .padding(horizontal = 10.dp)
+                    .clip(CircleShape)
+            )
         }
     }
 
