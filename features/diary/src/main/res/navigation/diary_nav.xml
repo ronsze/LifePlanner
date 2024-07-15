@@ -5,7 +5,7 @@
     android:id="@+id/diary_nav"
     app:startDestination="@id/diaryFragment">
 
-    <fragment
+    <bottom_navigator
         android:id="@+id/diaryFragment"
         android:name="kr.sdbk.feature_diary.DiaryFragment"
         android:label="DiaryFragment"
@@ -16,6 +16,6 @@
             app:argType="boolean"
             android:defaultValue="true"/>
 
-    </fragment>
+    </bottom_navigator>
 
 </navigation>

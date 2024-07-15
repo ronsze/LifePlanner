@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="kr.sdbk.feature_splash.SplashFragment"
-        android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash" />
+        android:label="SplashFragment" />
 
 </navigation>

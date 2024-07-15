@@ -38,6 +38,10 @@ class HomeViewModel @Inject constructor(
     private val _scheduleList: MutableStateFlow<List<Schedule>> = MutableStateFlow(listOf())
     val scheduleList get() = _scheduleList.asStateFlow()
 
+    init {
+        loadData()
+    }
+
     fun loadData() {
         _viewState.set(HomeViewState.Loading)
         loadAllSchedules()

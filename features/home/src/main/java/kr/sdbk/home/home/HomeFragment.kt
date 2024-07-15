@@ -50,9 +50,7 @@ import java.time.DayOfWeek
 class HomeFragment : BaseComposeFragment<HomeViewModel>() {
     override val fragmentViewModel: HomeViewModel by viewModels()
 
-    override fun afterComposed() {
-        fragmentViewModel.loadData()
-    }
+    override fun afterComposed() {}
 
     @Composable
     override fun Root() {

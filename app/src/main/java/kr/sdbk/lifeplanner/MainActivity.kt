@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.sdbk.core_common.context_view.BaseActivity
+import kr.sdbk.core_common.util.BottomNavigator
 import kr.sdbk.lifeplanner.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -23,12 +24,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(
     }
 
     override fun observeViewModel() {
-
+        
     }
 
     private fun setNavigation() {
         val navHost = supportFragmentManager.findFragmentById(R.id.main_nav_container) as NavHostFragment
         navController = navHost.navController
+        val navigator = BottomNavigator(navHost.childFragmentManager, binding.mainNavContainer.id)
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.main_nav)
     }
 
     private fun setBottomNavigation() {
