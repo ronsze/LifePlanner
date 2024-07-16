@@ -65,7 +65,6 @@ class SplashFragment: BaseComposeFragment<SplashViewModel>() {
             .build()
 
         val option = navOptions {
-            getSlideAnim()
             popUpTo(R.id.splashFragment) {
                 inclusive = true
             }

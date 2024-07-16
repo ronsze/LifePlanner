@@ -28,7 +28,6 @@ class HomeViewModel @Inject constructor(
     application: Application,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getAllSchedulesUseCase: GetAllScheduleUseCase,
-    private val insertScheduleUseCase: InsertScheduleUseCase,
     private val updateScheduleUseCase: UpdateScheduleUseCase,
     private val deleteScheduleUseCase: DeleteScheduleUseCase
 ): BaseViewModel(application) {
@@ -78,16 +77,6 @@ class HomeViewModel @Inject constructor(
                 )
             )
             _viewState.set(HomeViewState.View)
-        }
-    }
-
-    fun insertSchedule(schedule: Schedule) {
-        viewModelScope.launch(ioDispatcher) {
-            insertScheduleUseCase(schedule, {
-
-            }, handleBaseError {
-
-            })
         }
     }
 

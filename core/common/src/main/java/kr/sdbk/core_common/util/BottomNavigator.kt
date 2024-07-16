@@ -20,14 +20,13 @@ class BottomNavigator(
 
     override fun createDestination(): FragmentNavigator.Destination = FragmentNavigator.Destination(this)
 
-
     override fun navigate(
         destination: FragmentNavigator.Destination,
         args: Bundle?,
         navOptions: NavOptions?,
-        navigatorExtras: Navigator.Extras?
+        navigatorExtras: Extras?
     ): NavDestination? {
-        val className = destination.className ?: return null
+        val className = destination.className
         val tag = className.split('.').last()
 
         if (backStack.peekLast() == tag) {
@@ -49,7 +48,6 @@ class BottomNavigator(
             } else {
                 show(current)
             }
-
             hideOthers(tag)
         }
 
