@@ -21,9 +21,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "LifePlanner"
 include(":app")
-include(":data")
-include(":domain")
-include(":features:feature-splash")
-include(":core:core-common")
-include(":features:feature-diary")
-include(":features:feature-mypage")
+include(":core:data")
+include(":core:domain")
+include(":core:common")
+include(":features:splash")
+include(":features:diary")
+include(":features:mypage")
+include(":features:home")
