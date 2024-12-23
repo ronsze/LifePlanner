@@ -5,11 +5,11 @@ import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.splashGraph(
-    navigateToScheduleView: () -> Unit
+    navigateToHome: () -> Unit
 ) {
     composable<Splash> {
         SplashView(
-            navigateToScheduleView = navigateToScheduleView
+            navigateToHome = navigateToHome
         )
     }
 }

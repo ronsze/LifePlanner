@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -43,6 +44,8 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.feature.splash)
     implementation(projects.feature.schedule)
+    implementation(projects.feature.diary)
+    implementation(projects.feature.setting)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -55,4 +58,5 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.kotlinx.serialization)
 }
