@@ -3,5 +3,7 @@ package kr.sdbk.splash
 import androidx.compose.runtime.Composable
 
 @Composable
-fun SplashView() {
+fun SplashView(
+    navigateToScheduleView: () -> Unit
+) {
 }

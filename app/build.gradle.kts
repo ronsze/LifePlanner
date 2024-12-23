@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.feature.splash)
+    implementation(projects.feature.schedule)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

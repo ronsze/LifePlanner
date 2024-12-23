@@ -4,9 +4,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 
-fun NavGraphBuilder.splashGraph() {
+fun NavGraphBuilder.splashGraph(
+    navigateToScheduleView: () -> Unit
+) {
     composable<Splash> {
-        SplashView()
+        SplashView(
+            navigateToScheduleView = navigateToScheduleView
+        )
     }
 }
 
