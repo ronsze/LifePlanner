@@ -1,4 +1,4 @@
-package kr.sdbk.lifeplanner.ui.theme
+package kr.sdbk.common.ui.theme
 
 import android.app.Activity
 import android.os.Build
