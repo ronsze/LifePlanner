@@ -23,4 +23,4 @@ rootProject.name = "LifePlanner"
 include(":app")
 include(":core")
 include(":feature")
- 
+include(":core:common")
