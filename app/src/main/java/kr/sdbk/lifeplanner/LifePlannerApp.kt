@@ -10,9 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import kr.sdbk.diary.diaryGraph
@@ -49,21 +52,23 @@ private fun Home(
     Scaffold(
         bottomBar = {
             NavigationBar {
-                HomeDestinations.entries.forEach {
+                val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+                HomeDestinations.entries.forEach { dest ->
+                    val isSelected = currentDestination?.hierarchy?.any { it.hasRoute(dest.route::class) } == true
                     NavigationBarItem(
                         icon = {
                             Image(
-                                painterResource(it.icon),
+                                painterResource(dest.icon),
                                 contentDescription = ""
                             )
                         },
                         label = {
                             Text(
-                                text = stringResource(it.label)
+                                text = stringResource(dest.label)
                             )
                         },
-                        selected = false,
-                        onClick = { navController.navigate(it.route) },
+                        selected = isSelected,
+                        onClick = { navController.navigate(dest.route) },
                     )
                 }
             }

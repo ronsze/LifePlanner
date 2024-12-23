@@ -5,26 +5,25 @@ import androidx.annotation.StringRes
 import kr.sdbk.diary.Diary
 import kr.sdbk.schedule.Schedule
 import kr.sdbk.setting.Setting
-import kotlin.reflect.KClass
 
 enum class HomeDestinations(
     @DrawableRes val icon: Int,
     @StringRes val label: Int,
-    val route: KClass<*>
+    val route: Any
 ) {
     SCHEDULE(
         icon = R.drawable.ic_launcher_background,
         label = R.string.app_name,
-        route = Schedule::class
+        route = Schedule
     ),
     DIARY(
         icon = R.drawable.ic_launcher_background,
         label = R.string.app_name,
-        route = Diary::class
+        route = Diary
     ),
     SETTING(
         icon = R.drawable.ic_launcher_background,
         label = R.string.app_name,
-        route = Setting::class
+        route = Setting
     )
 }
