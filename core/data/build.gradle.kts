@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -33,11 +36,12 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.domain)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.room)
+    kapt(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
+
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }
