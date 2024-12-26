@@ -28,7 +28,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.7.3" }
 
-room = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]
@@ -39,6 +39,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.20" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.24" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-tooling", "compose-tooling-preview", "compose-material3", "compose-navigation", "androidx-activity-compose"]

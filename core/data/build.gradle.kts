@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinx.serialization)
 }
@@ -39,9 +39,9 @@ dependencies {
     implementation(projects.core.domain)
 
     implementation(libs.room)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     annotationProcessor(libs.room.compiler)
 
     implementation(libs.hilt)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 }
