@@ -25,7 +25,7 @@ fun SplashView(
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(kr.sdbk.common.R.drawable.load_img),
+            painter = painterResource(kr.sdbk.common.R.drawable.loading),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxWidth()
