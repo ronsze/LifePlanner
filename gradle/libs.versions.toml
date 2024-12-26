@@ -28,7 +28,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.7.3" }
 
-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]
