@@ -8,7 +8,7 @@ import kr.sdbk.domain.model.schdule.ScheduleState
 object ScheduleMapper {
     fun Schedule.toEntity() = ScheduleEntity(
         created = created,
-        name = name,
+        title = title,
         detail = detail,
         hour = hour,
         minute = minute,
@@ -18,7 +18,7 @@ object ScheduleMapper {
 
     fun ScheduleEntity.toData() = Schedule(
         created = created,
-        name = name,
+        title = title,
         detail = detail,
         hour = hour,
         minute = minute,
