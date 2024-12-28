@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.domain)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -53,6 +54,7 @@ dependencies {
 
     implementation(libs.bundles.compose)
     implementation(libs.hilt)
+    implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
     implementation(libs.kotlinx.serialization)
