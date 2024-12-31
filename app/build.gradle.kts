@@ -47,6 +47,9 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+
     implementation(projects.feature.splash)
     implementation(projects.feature.schedule)
     implementation(projects.feature.diary)
