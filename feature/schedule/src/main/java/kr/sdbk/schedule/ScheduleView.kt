@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -60,6 +61,7 @@ fun ScheduleView(
 
     val schedules by viewModel.scheduleList.collectAsStateWithLifecycle()
     LazyColumn(
+        contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier
             .padding(horizontal = 15.dp)
@@ -119,7 +121,7 @@ private fun ScheduleItem(
             imageVector = Icons.Filled.Menu,
             contentDescription = "",
             modifier = Modifier
-                .size(65.dp)
+                .size(75.dp)
                 .padding(5.dp)
                 .align(Alignment.CenterVertically)
         )
@@ -131,7 +133,7 @@ private fun EmptyScheduleItem() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(65.dp)
+            .height(75.dp)
             .drawBehind {
                 drawRoundRect(
                     color = Color.Black,
