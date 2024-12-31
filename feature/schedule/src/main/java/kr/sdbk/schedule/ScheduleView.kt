@@ -41,9 +41,11 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kr.sdbk.common.ui.composable.BaseText
+import kr.sdbk.domain.model.schdule.Schedule
 
 @Composable
 fun ScheduleView(
+    navigateToScheduleDetail: (Schedule?) -> Unit,
     viewModel: ScheduleViewModel = hiltViewModel()
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -71,12 +73,14 @@ fun ScheduleView(
                 title = it.title,
                 hour = it.hour,
                 minute = it.minute,
-                onClick = {}
+                onClick = { navigateToScheduleDetail(it) }
             )
         }
 
         item {
-            EmptyScheduleItem()
+            EmptyScheduleItem(
+                navigateToScheduleDetail = { navigateToScheduleDetail(null) }
+            )
         }
     }
 }
@@ -129,7 +133,9 @@ private fun ScheduleItem(
 }
 
 @Composable
-private fun EmptyScheduleItem() {
+private fun EmptyScheduleItem(
+    navigateToScheduleDetail: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -148,6 +154,7 @@ private fun EmptyScheduleItem() {
                 )
             }
             .clip(RoundedCornerShape(15.dp))
+            .clickable { navigateToScheduleDetail() }
     ) {
         Image(
             imageVector = Icons.Filled.Add,
@@ -172,5 +179,5 @@ private fun ScheduleItemPreview() {
 @Preview
 @Composable
 private fun EmptyScheduleItemPreview() {
-    EmptyScheduleItem()
+    EmptyScheduleItem {}
 }
