@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import kr.sdbk.common.ui.composable.BaseText
 import kr.sdbk.diary.diaryGraph
 import kr.sdbk.schedule.Schedule
 import kr.sdbk.schedule.scheduleGraph
@@ -63,7 +64,7 @@ private fun Home(
                             )
                         },
                         label = {
-                            Text(
+                            BaseText(
                                 text = stringResource(dest.label)
                             )
                         },
