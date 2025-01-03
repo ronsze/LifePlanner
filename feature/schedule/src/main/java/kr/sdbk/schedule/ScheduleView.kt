@@ -121,7 +121,7 @@ private fun DayOfWeekTab(
                 fontWeight = fontWeight,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .padding(vertical = 5.dp)
+                    .padding(vertical = 7.5.dp)
                     .clickable { onSelectTab(i) }
             )
         }
