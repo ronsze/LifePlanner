@@ -10,7 +10,16 @@ enum class DayOfWeek {
             val calendar = Calendar.getInstance()
             val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
-            return DayOfWeek.entries[dayOfWeek]
+            return when (dayOfWeek) {
+                0 -> SUN
+                1 -> MON
+                2 -> TUE
+                3 -> WED
+                4 -> THU
+                5 -> FRI
+                6 -> SAT
+                else -> throw Exception("DayOfWeek not matched")
+            }
         }
     }
 }
