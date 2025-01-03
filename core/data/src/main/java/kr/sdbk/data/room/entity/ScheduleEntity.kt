@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity("schedule")
 data class ScheduleEntity(
     @PrimaryKey val created: String,
-    val name: String,
+    val title: String,
     val detail: String,
     val hour: Int,
     val minute: Int,
