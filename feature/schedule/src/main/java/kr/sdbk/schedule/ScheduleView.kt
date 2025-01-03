@@ -20,12 +20,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -79,7 +77,14 @@ fun ScheduleView(
             }
         )
 
-        val schedules = scheduleList.filter { it.dayOfWeek.ordinal == selectedTabIndex }
+        val schedules = scheduleList.filter {
+            it.dayOfWeek.ordinal == selectedTabIndex
+        }.sortedWith(
+            compareBy(
+                { it.hour },
+                { it.minute }
+            )
+        )
         LazyColumn(
             contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp),
