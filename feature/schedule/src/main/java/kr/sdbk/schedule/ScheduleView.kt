@@ -19,9 +19,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +48,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kr.sdbk.common.ui.composable.BaseText
+import kr.sdbk.domain.model.schdule.DayOfWeek
 import kr.sdbk.domain.model.schdule.Schedule
 
 @Composable
@@ -61,25 +69,60 @@ fun ScheduleView(
         }
     }
 
-    val schedules by viewModel.scheduleList.collectAsStateWithLifecycle()
-    LazyColumn(
-        contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
-        modifier = Modifier
-            .padding(horizontal = 15.dp)
-    ) {
-        items(schedules) {
-            ScheduleItem(
-                title = it.title,
-                hour = it.hour,
-                minute = it.minute,
-                onClick = { navigateToScheduleDetail(it) }
-            )
-        }
+    Column {
+        val scheduleList by viewModel.scheduleList.collectAsStateWithLifecycle()
+        var selectedTabIndex by remember { mutableIntStateOf(DayOfWeek.getCurrentDayOfWeek().ordinal) }
+        DayOfWeekTab(
+            selectedTabIndex = selectedTabIndex,
+            onSelectTab = {
+                selectedTabIndex = it
+            }
+        )
 
-        item {
-            EmptyScheduleItem(
-                navigateToScheduleDetail = { navigateToScheduleDetail(null) }
+        val schedules = scheduleList.filter { it.dayOfWeek.ordinal == selectedTabIndex }
+        LazyColumn(
+            contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            items(schedules) {
+                ScheduleItem(
+                    title = it.title,
+                    hour = it.hour,
+                    minute = it.minute,
+                    onClick = { navigateToScheduleDetail(it) }
+                )
+            }
+
+            item {
+                EmptyScheduleItem(
+                    navigateToScheduleDetail = { navigateToScheduleDetail(null) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DayOfWeekTab(
+    selectedTabIndex: Int,
+    onSelectTab: (Int) -> Unit
+) {
+    TabRow(
+        selectedTabIndex = selectedTabIndex,
+    ) {
+        DayOfWeek.entries.forEachIndexed { i, v ->
+            val isSelected = selectedTabIndex == i
+            val (color, fontWeight) = if (isSelected) Color.Black to FontWeight.Bold else Color.LightGray to FontWeight.Normal
+            BaseText(
+                text = v.name,
+                color = color,
+                fontWeight = fontWeight,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(vertical = 5.dp)
+                    .clickable { onSelectTab(i) }
             )
         }
     }
@@ -164,6 +207,14 @@ private fun EmptyScheduleItem(
                 .align(Alignment.Center)
         )
     }
+}
+
+@Preview
+@Composable
+private fun DayOfWeekTabPreview() {
+    DayOfWeekTab(
+        0
+    ) { }
 }
 
 @Preview
