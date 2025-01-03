@@ -138,7 +138,7 @@ private fun ScheduleItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(65.dp)
+            .height(75.dp)
             .border(1.dp, Color.Black, RoundedCornerShape(15.dp))
             .clip(RoundedCornerShape(15.dp))
     ) {
