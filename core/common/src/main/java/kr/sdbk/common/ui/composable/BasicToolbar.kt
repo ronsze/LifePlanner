@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -36,16 +37,32 @@ fun BasicToolbar(
             .height(44.dp)
             .padding(horizontal = 5.dp)
     ) {
-        frontComposable()
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(24.dp)
+        ) {
+            frontComposable()
+        }
+
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
+                .padding(horizontal = 10.dp)
         ) {
             title()
         }
-        rearComposable()
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(24.dp)
+        ) {
+            rearComposable()
+        }
+
     }
 }
 
@@ -73,9 +90,12 @@ object BasicToolbarDefaults {
     ): @Composable () -> Unit = {
         BaseText(
             text = title,
+            maxLines = 1,
             fontSize = fontSize,
             fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center,
             modifier = Modifier
+                .fillMaxWidth()
         )
     }
 

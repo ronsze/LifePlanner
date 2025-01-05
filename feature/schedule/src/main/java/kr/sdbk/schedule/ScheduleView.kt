@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -76,6 +77,7 @@ fun ScheduleView(
                 selectedTabIndex = it
             }
         )
+        ButtonDefaults.buttonColors()
 
         val schedules = scheduleList.filter {
             it.dayOfWeek.ordinal == selectedTabIndex

@@ -11,4 +11,6 @@ class ScheduleDetailViewModel @Inject constructor(
     private val insertScheduleUseCase: InsertScheduleUseCase,
     private val updateScheduleUseCase: UpdateScheduleUseCase
 ) : BaseViewModel() {
+
+
 }

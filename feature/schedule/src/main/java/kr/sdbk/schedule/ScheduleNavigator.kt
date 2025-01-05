@@ -26,7 +26,10 @@ fun NavGraphBuilder.scheduleGraph(
     composable<ScheduleDetail> {
         val scheduleJson: String = it.toRoute<ScheduleDetail>().scheduleJson
         val schedule: kr.sdbk.domain.model.schdule.Schedule? = Json.decodeFromStringOrNull(scheduleJson)
-        ScheduleDetailView(schedule)
+        ScheduleDetailView(
+            schedule = schedule,
+            onBackPressed = { navController.popBackStack() }
+        )
     }
 }
 
