@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun BasicToolbar(
-    title: @Composable () -> Unit,
-    frontComposable: @Composable () -> Unit,
-    rearComposable: @Composable () -> Unit
+    title: @Composable () -> Unit = {},
+    frontComposable: @Composable () -> Unit = {},
+    rearComposable: @Composable () -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
