@@ -21,6 +21,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,7 +61,7 @@ fun ScheduleDetailView(
             .verticalScroll(scrollState)
     ) {
         var title by remember { mutableStateOf(schedule?.title ?: "") }
-        val detail = remember { mutableStateOf(schedule?.detail ?: "") }
+        var detail by remember { mutableStateOf(schedule?.detail ?: "") }
         val hour = remember { mutableStateOf(schedule?.hour ?: 0) }
         val minute = remember { mutableIntStateOf(schedule?.minute ?: 0) }
         val dayOfWeek = remember { schedule?.dayOfWeek ?: DayOfWeek.getCurrentDayOfWeek() }
@@ -67,11 +69,18 @@ fun ScheduleDetailView(
         TitleBar(
             title = title,
             onTitleChanged = { title = it },
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
+            onClickSave = {
+
+            }
         )
         TimeSelectView(
             hour = hour,
             minute = minute
+        )
+        InputAreaView(
+            detail = detail,
+            onDetailChanged = { detail = it }
         )
     }
 }
@@ -80,7 +89,8 @@ fun ScheduleDetailView(
 private fun TitleBar(
     title: String,
     onTitleChanged: (String) -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onClickSave: () -> Unit
 ) {
     BasicToolbar(
         frontComposable = BasicToolbarDefaults.defaultIconComposable(
@@ -100,7 +110,11 @@ private fun TitleBar(
                 modifier = Modifier
                     .fillMaxWidth()
             )
-        }
+        },
+        rearComposable = BasicToolbarDefaults.defaultIconComposable(
+            image = Icons.Filled.Check,
+            onClick = onClickSave
+        )
     )
 }
 
@@ -213,7 +227,8 @@ private fun TitleBarPreview() {
     TitleBar(
         title = "Android meeting",
         onTitleChanged = {},
-        onBackPressed = {}
+        onBackPressed = {},
+        onClickSave = {}
     )
 }
 
