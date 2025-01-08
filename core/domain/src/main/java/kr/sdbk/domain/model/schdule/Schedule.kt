@@ -10,5 +10,6 @@ data class Schedule(
     val hour: Int,
     val minute: Int,
     val dayOfWeek: DayOfWeek,
+    val alarmType: AlarmType,
     val state: ScheduleState
 )
