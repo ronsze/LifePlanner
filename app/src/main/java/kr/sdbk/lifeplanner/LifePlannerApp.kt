@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import kr.sdbk.common.ui.composable.BaseText
 import kr.sdbk.diary.diaryGraph
 import kr.sdbk.schedule.Schedule
 import kr.sdbk.schedule.scheduleGraph
@@ -63,7 +63,7 @@ private fun Home(
                             )
                         },
                         label = {
-                            Text(
+                            BaseText(
                                 text = stringResource(dest.label)
                             )
                         },
@@ -79,7 +79,7 @@ private fun Home(
             startDestination = Schedule,
             modifier = Modifier.padding(padding)
         ) {
-            scheduleGraph()
+            scheduleGraph(navController)
             diaryGraph()
             settingGraph()
         }

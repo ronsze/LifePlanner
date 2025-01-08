@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinx.serialization)
 }
 
@@ -45,6 +47,9 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+
     implementation(projects.feature.splash)
     implementation(projects.feature.schedule)
     implementation(projects.feature.diary)
@@ -61,5 +66,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.serialization)
 }
