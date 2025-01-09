@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import kr.sdbk.common.ui.composable.BasePreview
 
 @Composable
 fun SplashView(
@@ -41,7 +42,7 @@ fun SplashView(
     }
 }
 
-@Preview
+@BasePreview
 @Composable
 private fun Preview() {
     SplashView {  }

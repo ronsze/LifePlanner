@@ -46,6 +46,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kr.sdbk.common.ui.composable.BasePreview
 import kr.sdbk.common.ui.composable.BaseText
 import kr.sdbk.domain.model.schdule.DayOfWeek
 import kr.sdbk.domain.model.schdule.Schedule
@@ -216,7 +217,7 @@ private fun EmptyScheduleItem(
     }
 }
 
-@Preview
+@BasePreview
 @Composable
 private fun DayOfWeekTabPreview() {
     DayOfWeekTab(
@@ -224,7 +225,7 @@ private fun DayOfWeekTabPreview() {
     ) { }
 }
 
-@Preview
+@BasePreview
 @Composable
 private fun ScheduleItemPreview() {
     ScheduleItem(
@@ -234,7 +235,7 @@ private fun ScheduleItemPreview() {
     ) {}
 }
 
-@Preview
+@BasePreview
 @Composable
 private fun EmptyScheduleItemPreview() {
     EmptyScheduleItem {}
