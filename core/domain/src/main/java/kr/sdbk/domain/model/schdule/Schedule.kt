@@ -11,5 +11,5 @@ data class Schedule(
     val minute: Int,
     val dayOfWeek: DayOfWeek,
     val alarmType: AlarmType,
-    val state: ScheduleState
+    var state: ScheduleState
 )

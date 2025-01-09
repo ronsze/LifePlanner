@@ -18,6 +18,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.TabRow
@@ -33,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +54,7 @@ import kr.sdbk.common.ui.composable.BasePreview
 import kr.sdbk.common.ui.composable.BaseText
 import kr.sdbk.domain.model.schdule.DayOfWeek
 import kr.sdbk.domain.model.schdule.Schedule
+import kr.sdbk.domain.model.schdule.ScheduleState
 
 @Composable
 fun ScheduleView(
@@ -99,6 +104,7 @@ fun ScheduleView(
                     title = it.title,
                     hour = it.hour,
                     minute = it.minute,
+                    state = it.state,
                     onClick = { navigateToScheduleDetail(it) }
                 )
             }
@@ -141,6 +147,7 @@ private fun ScheduleItem(
     title: String,
     hour: Int,
     minute: Int,
+    state: ScheduleState,
     onClick: () -> Unit
 ) {
     Row(
@@ -172,9 +179,15 @@ private fun ScheduleItem(
             )
         }
 
+        val (stateIcon, stateColor) = when (state) {
+            ScheduleState.NOT_YET -> Icons.Filled.CheckCircle to Color.LightGray
+            ScheduleState.COMPLETED -> Icons.Filled.CheckCircle to Color.Green
+            ScheduleState.GONE -> Icons.Filled.Close to Color.Red
+        }
         Image(
-            imageVector = Icons.Filled.Menu,
+            imageVector = stateIcon,
             contentDescription = "",
+            colorFilter = ColorFilter.tint(stateColor),
             modifier = Modifier
                 .size(75.dp)
                 .padding(5.dp)
@@ -232,6 +245,7 @@ private fun ScheduleItemPreview() {
         title = "Android meeting",
         hour = 12,
         minute = 30,
+        state = ScheduleState.NOT_YET
     ) {}
 }
 
