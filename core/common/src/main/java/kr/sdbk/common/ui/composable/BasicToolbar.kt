@@ -66,7 +66,7 @@ fun BasicToolbar(
     }
 }
 
-@Preview
+@BasePreview
 @Composable
 private fun BasicToolbarPreview() {
     BasicToolbar(
