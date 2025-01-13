@@ -10,6 +10,6 @@ data class Schedule(
     val hour: Int,
     val minute: Int,
     val dayOfWeek: DayOfWeek,
-    val alarmType: AlarmType,
-    var state: ScheduleState
+    val alarmType: AlarmType = AlarmType.BELL,
+    var state: ScheduleState = ScheduleState.NOT_YET
 )
