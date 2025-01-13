@@ -15,6 +15,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -101,15 +103,20 @@ object BasicToolbarDefaults {
 
     fun defaultIconComposable(
         image: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
+        enabled: Boolean = true,
         size: Dp = 21.dp,
         onClick: () -> Unit
     ): @Composable () -> Unit = {
+        val color = if (enabled) Color.Black else Color.LightGray
         Image(
             imageVector = image,
             contentDescription = "",
+            colorFilter = ColorFilter.tint(color),
             modifier = Modifier
                 .size(size)
-                .clickable { onClick() }
+                .clickable {
+                    if (enabled) onClick()
+                }
         )
     }
 }

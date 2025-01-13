@@ -2,7 +2,6 @@ package kr.sdbk.schedule.schedule_detail
 
 import android.annotation.SuppressLint
 import android.widget.NumberPicker
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +30,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kr.sdbk.common.ui.composable.BasePreview
 import kr.sdbk.common.ui.composable.BaseText
 import kr.sdbk.common.ui.composable.BasicToolbar
@@ -54,6 +55,9 @@ fun ScheduleDetailView(
     onBackPressed: () -> Unit,
     viewModel: ScheduleDetailViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    if (uiState == ScheduleDetailViewModel.ScheduleDetailUiState.Updated) onBackPressed()
+
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -62,21 +66,35 @@ fun ScheduleDetailView(
     ) {
         var title by remember { mutableStateOf(schedule?.title ?: "") }
         var detail by remember { mutableStateOf(schedule?.detail ?: "") }
-        val hour = remember { mutableStateOf(schedule?.hour ?: 0) }
+        val hour = remember { mutableIntStateOf(schedule?.hour ?: 0) }
         val minute = remember { mutableIntStateOf(schedule?.minute ?: 0) }
-        val dayOfWeek = remember { schedule?.dayOfWeek ?: DayOfWeek.getCurrentDayOfWeek() }
+        var dayOfWeek by remember { mutableStateOf(schedule?.dayOfWeek ?: DayOfWeek.getCurrentDayOfWeek()) }
 
         TitleBar(
             title = title,
             onTitleChanged = { title = it },
             onBackPressed = onBackPressed,
             onClickSave = {
-
+                val newSchedule = Schedule(
+                    created = schedule?.created ?: System.currentTimeMillis().toString(),
+                    title = title,
+                    detail = detail,
+                    hour = hour.intValue,
+                    minute = minute.intValue,
+                    dayOfWeek = dayOfWeek
+                )
+                viewModel.upsertSchedule(newSchedule)
             }
         )
         TimeSelectView(
             hour = hour,
             minute = minute
+        )
+        DayOfWeekSelectView(
+            dayOfWeek = dayOfWeek,
+            onClickDayOfWeek = {
+                dayOfWeek = it
+            }
         )
         InputAreaView(
             detail = detail,
@@ -92,6 +110,7 @@ private fun TitleBar(
     onBackPressed: () -> Unit,
     onClickSave: () -> Unit
 ) {
+    val isSaveAvailable = title.isNotEmpty()
     BasicToolbar(
         frontComposable = BasicToolbarDefaults.defaultIconComposable(
             image = Icons.AutoMirrored.Filled.ArrowBack,
@@ -113,6 +132,7 @@ private fun TitleBar(
         },
         rearComposable = BasicToolbarDefaults.defaultIconComposable(
             image = Icons.Filled.Check,
+            enabled = isSaveAvailable,
             onClick = onClickSave
         )
     )
@@ -133,6 +153,7 @@ private fun TimeSelectView(
                 NumberPicker(it).apply {
                     minValue = 0
                     maxValue = 23
+                    displayedValues = (minValue..maxValue).toList().map { "${String.format("%02d", it)}" }.toTypedArray()
                     setOnValueChangedListener { _, _, newVal ->
                         hour.value = newVal
                     }
@@ -148,6 +169,7 @@ private fun TimeSelectView(
                 NumberPicker(it).apply {
                     minValue = 0
                     maxValue = 59
+                    displayedValues = (minValue..maxValue).toList().map { "${String.format("%02d", it)}" }.toTypedArray()
                     setOnValueChangedListener { _, oldVal, newVal ->
                         minute.value = newVal
                         if (oldVal == minValue && newVal == maxValue) hour.value -= 1
@@ -160,6 +182,34 @@ private fun TimeSelectView(
             }
         )
         Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun DayOfWeekSelectView(
+    dayOfWeek: DayOfWeek,
+    onClickDayOfWeek: (DayOfWeek) -> Unit
+) {
+    Row (
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(45.dp)
+            .padding(horizontal = 16.dp)
+    ) {
+        DayOfWeek.entries.forEach {
+            val isSelected = dayOfWeek == it
+            val (color, weight) = if (isSelected) Color.Black to FontWeight.Bold else Color.LightGray to FontWeight.Normal
+            BaseText(
+                text = it.name,
+                color = color,
+                textAlign = TextAlign.Center,
+                fontWeight = weight,
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onClickDayOfWeek(it) }
+            )
+        }
     }
 }
 
@@ -240,6 +290,14 @@ private fun TimeSelectPreview() {
         hour = mutableStateOf(0),
         minute = mutableStateOf(0)
     )
+}
+
+@BasePreview
+@Composable
+private fun DayOfWeekSelectPreview() {
+    DayOfWeekSelectView(
+        DayOfWeek.getCurrentDayOfWeek()
+    ) {}
 }
 
 @BasePreview

@@ -170,7 +170,7 @@ private fun ScheduleItem(
             )
 
             BaseText(
-                text = "$hour:$minute",
+                text = "${String.format("%02d", hour)}:${String.format("%02d", minute)}",
                 fontSize = 23.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -189,7 +189,7 @@ private fun ScheduleItem(
             contentDescription = "",
             colorFilter = ColorFilter.tint(stateColor),
             modifier = Modifier
-                .size(75.dp)
+                .size(65.dp)
                 .padding(5.dp)
                 .align(Alignment.CenterVertically)
         )
