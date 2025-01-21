@@ -22,3 +22,7 @@ android {
         jvmTarget = "17"
     }
 }
+
+dependencies {
+    implementation(libs.compose.permission)
+}

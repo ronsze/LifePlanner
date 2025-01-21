@@ -18,12 +18,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -42,7 +43,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -74,8 +74,8 @@ fun ScheduleView(
         }
     }
 
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     Column {
-        val scheduleList by viewModel.scheduleList.collectAsStateWithLifecycle()
         var selectedTabIndex by remember { mutableIntStateOf(DayOfWeek.getCurrentDayOfWeek().ordinal) }
         DayOfWeekTab(
             selectedTabIndex = selectedTabIndex,
@@ -83,38 +83,15 @@ fun ScheduleView(
                 selectedTabIndex = it
             }
         )
-        ButtonDefaults.buttonColors()
 
-        val schedules = scheduleList.filter {
-            it.dayOfWeek.ordinal == selectedTabIndex
-        }.sortedWith(
-            compareBy(
-                { it.hour },
-                { it.minute }
-            )
+        val scheduleList by viewModel.scheduleList.collectAsStateWithLifecycle()
+        ScheduleList(
+            scheduleList = scheduleList,
+            selectedTabIndex = selectedTabIndex,
+            isRefreshing = uiState.value == ScheduleViewModel.ScheduleUiState.Loading,
+            loadData = viewModel::loadData,
+            navigateToScheduleDetail = navigateToScheduleDetail
         )
-        LazyColumn(
-            contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
-            modifier = Modifier
-                .padding(horizontal = 15.dp)
-        ) {
-            items(schedules) {
-                ScheduleItem(
-                    title = it.title,
-                    hour = it.hour,
-                    minute = it.minute,
-                    state = it.state,
-                    onClick = { navigateToScheduleDetail(it) }
-                )
-            }
-
-            item {
-                EmptyScheduleItem(
-                    navigateToScheduleDetail = { navigateToScheduleDetail(null) }
-                )
-            }
-        }
     }
 }
 
@@ -138,6 +115,63 @@ private fun DayOfWeekTab(
                     .padding(vertical = 7.5.dp)
                     .clickable { onSelectTab(i) }
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ScheduleList(
+    scheduleList: List<Schedule>,
+    selectedTabIndex: Int,
+    isRefreshing: Boolean,
+    loadData: () -> Unit,
+    navigateToScheduleDetail: (Schedule?) -> Unit
+) {
+    val schedules = scheduleList.filter {
+        it.dayOfWeek.ordinal == selectedTabIndex
+    }.sortedWith(
+        compareBy(
+            { it.hour },
+            { it.minute }
+        )
+    )
+
+    val pullRefreshState = rememberPullToRefreshState()
+    PullToRefreshBox(
+        state = pullRefreshState,
+        isRefreshing = isRefreshing,
+        onRefresh = loadData,
+        indicator = {
+            PullToRefreshDefaults.Indicator(
+                state = pullRefreshState,
+                isRefreshing = isRefreshing,
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+            )
+        }
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(top = 25.dp, bottom = 30.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+        ) {
+            items(schedules) {
+                ScheduleItem(
+                    title = it.title,
+                    hour = it.hour,
+                    minute = it.minute,
+                    state = it.state,
+                    onClick = { navigateToScheduleDetail(it) }
+                )
+            }
+
+            item {
+                EmptyScheduleItem(
+                    navigateToScheduleDetail = { navigateToScheduleDetail(null) }
+                )
+            }
         }
     }
 }
